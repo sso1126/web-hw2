@@ -1,13 +1,12 @@
 // ===== Part A =====
 // A1. 평균 평점
-function average(list) {
-    let sum = 0;
-    for (const m of list) {
-        sum += m.rating;
-    }
-    return sum / list.length;
+let sumA = 0;
+
+for (let i = 0; i < ratings.length; i++) {
+    sumA += ratings[i];
 }
-console.log("평균:", average(movies));
+
+console.log("A1 평균 평점: " + sumA / ratings.length);
 
 
 // A2. 최고 평점 영화의 제목과 평점
@@ -76,13 +75,13 @@ console.log(
 // A5. 관객 100만 이상 영화 제목
 let bigA = "";
 
-for (let i = 0; i < movies.length; i++) {
-    if (movies[i].audience >= 1000000) {
+for (let i = 0; i < audiences.length; i++) {
+    if (audiences[i] >= 1000000) {
         if (bigA !== "") {
             bigA += " ";
         }
 
-        bigA += movies[i].title;
+        bigA += titles[i];
     }
 }
 
@@ -199,8 +198,6 @@ function yearsSince(dateStr) {
 
 
 
-document.getElementById("out").textContent = line1 + "\n" + line2 + "\n" + line3;
-
 const bestMovie = best(movies);
 const topAudience = sortBy(movies, "audience", true)[0];
 
@@ -212,6 +209,8 @@ const line2 = "최고 평점: " + bestMovie.title +
 
 const line3 = "관객 1위: " + topAudience.title +
     " (누적 " + formatNumber(topAudience.audience) + "명)";
+
+    document.getElementById("out").textContent = line1 + "\n" + line2 + "\n" + line3;
 
 
 

@@ -57,6 +57,8 @@ const audiences = [
 ];
 
 
+
+
 // Part B : 영화 객체 10건(Part A와 같은 순서)
 const movies = [
     // 내 인생 영화
