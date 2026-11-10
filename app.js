@@ -212,3 +212,47 @@ const line2 = "최고 평점: " + bestMovie.title +
 
 const line3 = "관객 1위: " + topAudience.title +
     " (누적 " + formatNumber(topAudience.audience) + "명)";
+
+
+
+// ===== Part C =====
+// 영화 목록 가져오기
+function getList(data) {
+    return data.results;
+}
+
+// 평균 평점 계산하기
+function averageBy(list, key) {
+    let sum = 0;
+
+    for (let i = 0; i < list.length; i++) {
+        sum += list[i][key];
+    }
+
+    return sum / list.length;
+}
+
+
+// C1. 영화 데이터 확인
+console.log(
+    TMDB.page,
+    TMDB.total_pages,
+    TMDB.total_results,
+    getList(TMDB).length
+);
+
+// C2. 상영작 평균 평점
+console.log(
+    averageBy(getList(TMDB), "vote_average").toFixed(1)
+);
+
+// C3. 평점 상위 5편
+console.table(
+    sortBy(getList(TMDB), "vote_average", true).slice(0, 5),
+    ["title", "release_date", "vote_average"]
+);
+
+// C4. 검색 결과 개수
+console.log(
+    search(getList(TMDB), "검색어").length
+);
