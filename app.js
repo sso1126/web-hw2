@@ -1,15 +1,13 @@
 // ===== Part A =====
-
 // A1. 평균 평점
-let sumA = 0;
-
-for (let i = 0; i < movies.length; i++) {
-    sumA += movies[i].rating;
+function average(list) {
+    let sum = 0;
+    for (const m of list) {
+        sum += m.rating;
+    }
+    return sum / list.length;
 }
-
-const average = sumA / movies.length;
-
-console.log("A1 평균 평점: " + average);
+console.log("평균:", average(movies));
 
 
 // A2. 최고 평점 영화의 제목과 평점
@@ -93,3 +91,124 @@ if (bigA === "") {
 }
 
 console.log("A5 관객 100만 이상: " + bigA);
+
+
+
+
+// ===== Part B =====
+// 배열을 영화 객체로 합치기
+const movies = [];
+
+for (let i = 0; i < titles.length; i++) {
+    movies.push({
+        title: titles[i],
+        year: years[i],
+        rating: ratings[i],
+        audience: audiences[i]
+    });
+}
+
+
+// 1. 평균 평점
+function average(list) {
+    let sum = 0;
+
+    for (let i = 0; i < list.length; i++) {
+        sum += list[i].rating;
+    }
+
+    return sum / list.length;
+}
+
+
+// 2. 최고 평점 영화
+function best(list) {
+    let result = list[0];
+
+    for (let i = 1; i < list.length; i++) {
+        if (list[i].rating > result.rating) {
+            result = list[i];
+        }
+    }
+
+    return result;
+}
+
+
+// 3. 평점 필터
+function filterByRating(list, min) {
+    return list.filter(m => m.rating >= min);
+}
+
+
+// 4. 정렬
+function sortBy(list, key, desc) {
+    const result = [...list];
+
+    result.sort((a, b) => {
+        let value;
+
+        if (typeof a[key] === "string") {
+            value = a[key].localeCompare(b[key]);
+        } else {
+            value = a[key] - b[key];
+        }
+
+        const sign = desc ? -1 : 1;
+
+        return value * sign;
+    });
+
+    return result;
+}
+
+
+// 5. 영화 제목 검색
+function search(list, keyword) {
+    const word = keyword.trim().toLowerCase();
+
+    return list.filter(m =>
+        m.title.toLowerCase().includes(word)
+    );
+}
+
+
+// 6. 숫자에 천 단위 쉼표 넣기
+function formatNumber(n) {
+    return Number(n).toLocaleString("ko-KR");
+}
+
+
+// 7. 개봉한 지 몇 년인지 계산
+function yearsSince(dateStr) {
+    const date = new Date(dateStr);
+    const today = new Date();
+
+    let year = today.getFullYear() - date.getFullYear();
+
+    if (
+        today.getMonth() < date.getMonth() ||
+        (today.getMonth() === date.getMonth() &&
+         today.getDate() < date.getDate())
+    ) {
+        year--;
+    }
+
+    return year;
+}
+
+
+
+document.getElementById("out").textContent = line1 + "\n" + line2 + "\n" + line3;
+
+const bestMovie = best(movies);
+const topAudience = sortBy(movies, "audience", true)[0];
+
+const line1 = "평균 평점: " + average(movies).toFixed(1);
+
+const line2 = "최고 평점: " + bestMovie.title +
+    " (" + bestMovie.rating + "점, 개봉한 지 " +
+    yearsSince(bestMovie.year + "-01-01") + "년)";
+
+const line3 = "관객 1위: " + topAudience.title +
+    " (누적 " + formatNumber(topAudience.audience) + "명)";
