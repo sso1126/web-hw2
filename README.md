@@ -22,6 +22,7 @@
 | 3 | best(movies).title | '너의 이름은' | '너의 이름은' |
 | 4 | sortBy(movies, "rating", true)[0].title | '너의 이름은' | '너의 이름은' |
 | 5 | filterByRating(movies, 8).length | '4' | '8' |
+- 평점 필터 함수는 처음에 8점 이상인 영화의 정보를 배열 형태로 반환했지만, A3 코드는 조건에 맞는 영화의 개수만 계산하도록 작성되어 있어 출력 결과의 형태가 달랐다.
 | 6 | search(movies, " 인터 ").length | '0' | '0' |
 | 7 | yearsSince("2014-11-06") | '12' | '12' |
 | 8 | movies[0].title | '극장판 치이카와: 인어 섬의 비밀' | '극장판 치이카와: 인어 섬의 비밀' |
