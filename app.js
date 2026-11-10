@@ -96,8 +96,6 @@ console.log("A5 관객 100만 이상: " + bigA);
 
 // ===== Part B =====
 // 배열을 영화 객체로 합치기
-const movies = [];
-
 for (let i = 0; i < titles.length; i++) {
     movies.push({
         title: titles[i],
@@ -234,15 +232,22 @@ function averageBy(list, key) {
 
 // C1. 영화 데이터 확인
 console.log(
-    TMDB.page,
-    TMDB.total_pages,
-    TMDB.total_results,
-    getList(TMDB).length
+    "C1",
+    "page " + TMDB.page + ",",
+    "total_pages " + TMDB.total_pages + ",",
+    "total_results " + TMDB.total_results + ",",
+    "이번 응답 " + getList(TMDB).length + "편"
 );
 
 // C2. 상영작 평균 평점
 console.log(
+    "C2 상영작 평균 평점: " +
     averageBy(getList(TMDB), "vote_average").toFixed(1)
+);
+
+// C4. 검색 결과 개수
+console.log(
+    "C4 'The Furious' 검색: " + search(getList(TMDB), "The Furious").length + "편"
 );
 
 // C3. 평점 상위 5편
@@ -251,7 +256,3 @@ console.table(
     ["title", "release_date", "vote_average"]
 );
 
-// C4. 검색 결과 개수
-console.log(
-    search(getList(TMDB), "검색어").length
-);
